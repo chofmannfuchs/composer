@@ -6,8 +6,8 @@
     <version>0.0.1-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.target>11</maven.compiler.target>
-        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -23,6 +23,11 @@
         <code-assert.version>0.9.10</code-assert.version>
         <mockwebserver.version>2.7.5</mockwebserver.version>
         <guava-testlib.version>29.0-jre</guava-testlib.version>
+
+        <dockerfile-maven-version>1.4.13</dockerfile-maven-version>
+
+        <docker.image.prefix>inova-workshop</docker.image.prefix>
+        <composer.jar-file>composer.jar</composer.jar-file>
     </properties>
 
     <dependencies>
@@ -219,6 +224,27 @@
                         <goals>
                             <goal>report</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>${dockerfile-maven-version}</version>
+                <executions>
+                    <execution>
+                        <id>default</id>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                        <configuration>
+                            <repository>${docker.image.prefix}/${project.artifactId}</repository>
+                            <buildArgs>mv
+                                <JAR_FILE>/target/${composer.jar-file}</JAR_FILE>
+                                <CONF_FILE>/composer.conf</CONF_FILE>
+                            </buildArgs>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
