@@ -37,6 +37,9 @@ Then run:
 This will create a Docker image with the tag `composer:latest`. 
 The Composer-Service will get exposed on Port 8000, see: [composer.conf](composer.conf) for configuration details.
 
+*Caveat:* If you are building on ARM architecture ("aarch64", Apple M1, ...), Maven won't build the Docker file.
+Instead, run `./build-docker.sh` to build the Docker image.
+
 ### Composition of micro frontends
 **Specify an include**
 
