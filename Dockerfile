@@ -1,4 +1,4 @@
-FROM eclipse-temurin:17-jre
+FROM eclipse-temurin:11-jre
 # Add Maven dependencies (not shaded into the artifact; Docker-cached)
 ADD /target/lib  /lib
 ARG JAR_FILE
